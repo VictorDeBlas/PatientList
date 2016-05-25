@@ -1,0 +1,10 @@
+<div class="item-list">
+
+	<h1>Patient List</h1>
+
+	<div ng-repeat="item in vm.patients | filter: vm.searchText | orderBy: vm.orderCriteria">
+	</div>
+
+	<button class="custom-button load-more" ng-click="vm.loadMore()" ng-disabled="!vm.loadMorePagesAvailable" ng-class="{'disabled': !vm.loadMorePagesAvailable}">View More</button>
+	
+</div>
