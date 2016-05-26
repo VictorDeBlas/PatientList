@@ -9,8 +9,7 @@ function PatientListRouteConfig($routeProvider) {
 		controller: PatientListRouteController,
 		controllerAs: 'vm',
 		resolve: {
-			items: PatientListResolver,
-			totalItems: PatientListTotalResolver
+			patients: PatientListResolver
 		}
 	});
 }
@@ -20,39 +19,46 @@ function PatientListResolver(patientListService) {
 	return patientListService.loadPatients();
 }
 
-function PatientListTotalResolver(patientListService) {
-	return patientListService.getTotalItems();
-}
 
 /* @ngInject */
-function PatientListRouteController(patients, totalItems, patientListService) {
-	var vm = this, page = 0, numberPatients = totalItems;
+function PatientListRouteController(patients) {
+	//patientListService
+	var vm = this;
 
+	vm.sort = {
+		column: 'surname',
+		descending: false
+	};
+	vm.head = {
+		name: 'Name',
+		surname: 'Surname',
+		id: 'Id'
+	};
 	vm.patients = patients;
-	vm.loadMorePagesAvailable = true;
-
-	vm.loadMore = loadMorePatients;
+	
+	vm.changeSorting = changeSorting;
 
 	///////
 
 
 	/////// PUBLIC FUNCTIONS
 
-	function loadMorePatients() {
-		page += 1;
-		patientListService.loadMorePatients(page)
-			.then(loadMoreSuccess);
+	function changeSorting(column) {
+		var sort = vm.sort;
+		if (sort.column === column) {
+			sort.descending = !sort.descending;
+		} else {
+			sort.column = column;
+			sort.descending = false;
+		}
 	}
+
+	//http://stackoverflow.com/questions/19122942/angular-js-sorting-rows-by-table-header
+	//http://jsfiddle.net/vojtajina/js64b/14/
 
 	
 	/////// PRIVATE FUNCTIONS
 
-	function loadMoreSuccess( response ) {
-		vm.patients.push.apply(vm.patients, response);
-
-		if ( vm.patients.length >= numberPatients ) {
-			vm.loadMorePagesAvailable = false;
-		}
-	}
+	
 	
 }

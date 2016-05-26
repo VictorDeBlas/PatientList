@@ -6,8 +6,7 @@ module.exports = ItemListService;
 function ItemListService(patientListRemote) {
 	var service = {
 		loadPatients: loadPatients,
-		loadMorePatients:loadMorePatients,
-		getTotalItems: getTotalItems
+		loadMorePatients:loadMorePatients
 	};
 
 	return service;
@@ -25,13 +24,6 @@ function ItemListService(patientListRemote) {
 
 	function loadMorePatients(page) {
 		return patientListRemote.loadMorePatients(page)
-			.then( function(response) {
-				return response;
-			});
-	}
-
-	function getTotalItems() {
-		return patientListRemote.getTotalItems()
 			.then( function(response) {
 				return response;
 			});

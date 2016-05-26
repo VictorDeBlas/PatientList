@@ -6,8 +6,7 @@ module.exports = PatientListRemoteFactory;
 function PatientListRemoteFactory($http) {
 	var service = {
 		loadPatients: loadPatients,
-		loadMorePatients: loadMorePatients,
-		getTotalItems: getTotalItems
+		loadMorePatients: loadMorePatients
 	};
 	return service;
 
@@ -16,7 +15,6 @@ function PatientListRemoteFactory($http) {
 	function loadPatients() {
 		return $http.get('https://demo3417391.mockable.io/patients')
 			.then( function(response) {
-				console.log(response);
 				return response.data.results;
 			});
 	}
@@ -26,13 +24,6 @@ function PatientListRemoteFactory($http) {
 		return $http.get('https://demo3417391.mockable.io/patients')
 			.then( function(response) {
 				return response.data.results;
-			});
-	}
-
-	function getTotalItems() {
-		return $http.get('/src/item-list/services/items.json')
-			.then( function(response) {
-				return response.data.items.length;
 			});
 	}
 }

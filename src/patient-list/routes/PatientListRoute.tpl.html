@@ -5,6 +5,26 @@
 	<div ng-repeat="item in vm.patients | filter: vm.searchText | orderBy: vm.orderCriteria">
 	</div>
 
-	<button class="custom-button load-more" ng-click="vm.loadMore()" ng-disabled="!vm.loadMorePagesAvailable" ng-class="{'disabled': !vm.loadMorePagesAvailable}">View More</button>
+	<table>
+		<thead>
+	        <tr>
+				<th ng-repeat="(i,th) in vm.head" ng-click="vm.changeSorting(i)">{{th}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="patient in vm.patients.$orderBy(vm.sort.column, vm.sort.descending)">
+				<td>{{patient.name}}</td>
+				<td>{{patient.surname}}</td>
+				<td>{{patient.id}}</td> 
+			</tr>
+		</tbody>
+	</table>
+	<!--<tbody>
+		<tr ng-repeat="patient in vm.patients.$orderBy(sort.column, sort.descending)">
+			<td>{{patient.name}}</td>
+			<td>{{patient.surname}}</td>
+			<td>{{patient.id}}</td> 
+		</tr>
+	</tbody>-->
 	
 </div>
