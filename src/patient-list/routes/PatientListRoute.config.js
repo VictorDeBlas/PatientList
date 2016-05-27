@@ -25,15 +25,8 @@ function PatientListRouteController(patients) {
 	//patientListService
 	var vm = this;
 
-	vm.sort = {
-		column: 'surname',
-		descending: false
-	};
-	vm.head = {
-		name: 'Name',
-		surname: 'Surname',
-		id: 'Id'
-	};
+	vm.orderByField = 'name';
+	vm.reverseSort = false;
 	vm.patients = patients;
 	
 	vm.changeSorting = changeSorting;
@@ -43,15 +36,8 @@ function PatientListRouteController(patients) {
 
 	/////// PUBLIC FUNCTIONS
 
-	function changeSorting(column) {
-		var sort = vm.sort;
-		if (sort.column === column) {
-			sort.descending = !sort.descending;
-		} else {
-			sort.column = column;
-			sort.descending = false;
-		}
-	}
+	
+
 
 	//http://stackoverflow.com/questions/19122942/angular-js-sorting-rows-by-table-header
 	//http://jsfiddle.net/vojtajina/js64b/14/

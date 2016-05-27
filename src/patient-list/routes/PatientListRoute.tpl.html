@@ -2,29 +2,33 @@
 
 	<h1>Patient List</h1>
 
-	<div ng-repeat="item in vm.patients | filter: vm.searchText | orderBy: vm.orderCriteria">
-	</div>
-
-	<table>
+	<table class="table table-bordered">
 		<thead>
-	        <tr>
-				<th ng-repeat="(i,th) in vm.head" ng-click="vm.changeSorting(i)">{{th}}</th>
+			<tr>
+				<th>
+					<a href="#" ng-click="vm.orderByField='firstName'; vm.reverseSort = !vm.reverseSort">
+					Name <span ng-show="vm.orderByField == 'firstName'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
+					</a>
+				</th>
+				<th>
+					<a href="#" ng-click="vm.orderByField='lastName'; vm.reverseSort = !vm.reverseSort">
+					Surname <span ng-show="vm.orderByField == 'lastName'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
+					</a>
+				</th>
+				<th>
+					<a href="#" ng-click="vm.orderByField='age'; vm.reverseSort = !vm.reverseSort">
+					Id <span ng-show="vm.orderByField == 'age'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
+					</a>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="patient in vm.patients.$orderBy(vm.sort.column, vm.sort.descending)">
+			<tr ng-repeat="patient in vm.patients | orderBy:orderByField:reverseSort">
 				<td>{{patient.name}}</td>
 				<td>{{patient.surname}}</td>
-				<td>{{patient.id}}</td> 
+				<td>{{patient.id}}</td>
 			</tr>
 		</tbody>
-	</table>
-	<!--<tbody>
-		<tr ng-repeat="patient in vm.patients.$orderBy(sort.column, sort.descending)">
-			<td>{{patient.name}}</td>
-			<td>{{patient.surname}}</td>
-			<td>{{patient.id}}</td> 
-		</tr>
-	</tbody>-->
+  	</table>
 	
 </div>
