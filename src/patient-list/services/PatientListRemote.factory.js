@@ -6,24 +6,24 @@ module.exports = PatientListRemoteFactory;
 function PatientListRemoteFactory($http) {
 	var service = {
 		loadPatients: loadPatients,
-		loadMorePatients: loadMorePatients
+		loadMorePatients: loadPatients
 	};
 	return service;
 
 	//////
 
-	function loadPatients() {
-		return $http.get('https://demo3417391.mockable.io/patients')
-			.then( function(response) {
-				return response.data.results;
-			});
-	}
-
-	function loadMorePatients() {
-		//var startItem = page * 5, endItem = startItem + 5;
-		return $http.get('https://demo3417391.mockable.io/patients')
-			.then( function(response) {
-				return response.data.results;
+	function loadPatients(page) {
+		return $http({
+			url:  'https://demo3417391.mockable.io/patients',
+			method: 'GET',
+			params: {
+				page: page
+			}
+		}).then( function(response) {
+				return {
+					patients: response.data.results,
+					nextPage: response.data.next_page
+				};
 			});
 	}
 }

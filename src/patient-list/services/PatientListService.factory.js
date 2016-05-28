@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = ItemListService;
+module.exports = PatientListService;
 
 /* @ngInject */
-function ItemListService(patientListRemote) {
+function PatientListService(patientListRemote) {
 	var service = {
 		loadPatients: loadPatients,
 		loadMorePatients:loadMorePatients
@@ -14,9 +14,9 @@ function ItemListService(patientListRemote) {
 	//////
 
 
-	function loadPatients() {
+	function loadPatients(params) {
 
-		return patientListRemote.loadPatients()
+		return patientListRemote.loadPatients(params)
 			.then( function(response) {
 				return response;
 			});

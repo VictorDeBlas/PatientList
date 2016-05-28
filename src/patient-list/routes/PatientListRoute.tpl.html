@@ -1,34 +1,40 @@
-<div class="item-list">
+<div class="patient-list">
 
 	<h1>Patient List</h1>
+
+	<div class="filter-label">
+		<label>Filter: </label><input ng-model="vm.filterByField">
+	</div>
 
 	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th>
-					<a href="#" ng-click="vm.orderByField='firstName'; vm.reverseSort = !vm.reverseSort">
-					Name <span ng-show="vm.orderByField == 'firstName'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
+					<a href="" ng-click="vm.orderByField='name'; vm.reverseSort = !vm.reverseSort">
+					Name <span ng-show="vm.orderByField == 'name'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
 					</a>
 				</th>
 				<th>
-					<a href="#" ng-click="vm.orderByField='lastName'; vm.reverseSort = !vm.reverseSort">
-					Surname <span ng-show="vm.orderByField == 'lastName'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
+					<a href="" ng-click="vm.orderByField='surname'; vm.reverseSort = !vm.reverseSort">
+					Surname <span ng-show="vm.orderByField == 'surname'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
 					</a>
 				</th>
 				<th>
-					<a href="#" ng-click="vm.orderByField='age'; vm.reverseSort = !vm.reverseSort">
-					Id <span ng-show="vm.orderByField == 'age'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
+					<a href="" ng-click="vm.orderByField='id'; vm.reverseSort = !vm.reverseSort">
+					Id <span ng-show="vm.orderByField == 'id'"><span ng-show="!vm.reverseSort">^</span><span ng-show="vm.reverseSort">v</span></span>
 					</a>
 				</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="patient in vm.patients | orderBy:orderByField:reverseSort">
+			<tr ng-repeat="patient in vm.patients | orderBy:vm.orderByField : vm.reverseSort | filter: vm.filterByField">
 				<td>{{patient.name}}</td>
 				<td>{{patient.surname}}</td>
-				<td>{{patient.id}}</td>
+				<td>{{patient.status}}</td>
 			</tr>
 		</tbody>
   	</table>
-	
+
+  	<button class="load-more" ng-click="vm.loadMorePatients()" ng-disabled="!vm.hasMorePages" ng-class="{'disabled': !vm.hasMorePages}">View More</button>
+
 </div>
